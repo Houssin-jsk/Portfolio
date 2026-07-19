@@ -13,4 +13,6 @@ export const profile = {
 export const socialLinks = {
   github: "https://github.com/Houssin-jsk",
   portfolioRepository: "https://github.com/Houssin-jsk/Portfolio",
+  linkedin: null,
+  cv: null,
 } as const;

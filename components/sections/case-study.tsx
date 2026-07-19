@@ -12,7 +12,7 @@ const steps = [
 export function CaseStudy() {
   return (
     <section className="section case-study" id="case-study" aria-labelledby="case-study-title">
-      <Reveal><SectionHeading index="03" label="Featured case study" title="A complete" accent="BI workflow." /></Reveal>
+      <Reveal><SectionHeading id="case-study-title" index="03" label="Featured case study" title="A complete" accent="BI workflow." /></Reveal>
       <div className="case-intro">
         <Reveal className="case-question"><span>The question</span><h3>What should a decision-maker understand from this data?</h3></Reveal>
         <Reveal className="case-answer" delay={.08}><p>Rather than beginning with a dashboard, the project begins with the quality of the source. Preparation, KPI definition, analysis, and visual decisions all lead to one final reporting experience.</p><a href="#work">Explore related work <ArrowUpRight aria-hidden="true" /></a></Reveal>

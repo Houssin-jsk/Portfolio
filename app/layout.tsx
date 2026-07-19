@@ -32,11 +32,13 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "/",
     siteName: "El Houssaine Ouahad Portfolio",
+    images: [{ url: "/images/profile.png", width: 2086, height: 2989, alt: "El Houssaine Ouahad" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "El Houssaine Ouahad | Data Analyst",
     description: "Turning raw data into clear direction.",
+    images: ["/images/profile.png"],
   },
 };
 

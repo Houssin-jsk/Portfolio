@@ -1,10 +1,15 @@
-# El Houssaine Ouahad Portfolio
+# El Houssaine Ouahad — Portfolio
 
-Next.js foundation for a personal Data Analyst portfolio. The project uses the App Router, TypeScript, Tailwind CSS, Motion for React, Lucide React, and local project assets.
+A personal dark editorial data interface for El Houssaine Ouahad, Technicien Spécialisé en Intelligence Artificielle — Option Data Analyst.
 
-## Foundation status
+## Stack
 
-This repository is intentionally in the foundation phase. It includes the application shell, identity tokens, typed content boundaries, and asset directories. The full editorial portfolio interface is not implemented yet.
+- Next.js App Router and TypeScript
+- Tailwind CSS with project design tokens
+- Motion for React
+- Lucide React and Simple Icons
+- Local Space Grotesk and Inter fonts through `next/font/local`
+- Vercel
 
 ## Local development
 
@@ -15,27 +20,33 @@ npm run dev
 
 Open `http://localhost:3000`.
 
-## Production check
+## Validation
 
 ```powershell
+npm exec tsc -- --noEmit
+npm run lint
 npm run build
-npm run start
 ```
 
-## Vercel
+## Deploy
 
-The repository is compatible with Vercel's Next.js preset. Import the repository in Vercel, or run:
+The project deploys from the repository root using Vercel's Next.js preset with automatic build and output detection.
 
 ```powershell
 npx vercel
 npx vercel --prod
 ```
 
-## Asset locations
+Production: `https://el-houssaine-portfolio.vercel.app`
 
-- `public/images/` — personal and approved project imagery
-- `public/icons/` — custom icons
-- `public/videos/` — approved, optimized video only
-- `public/documents/` — CV and downloadable documents
+## Content and assets
 
-The project documentation in `DOCS/` is the source of truth for the later visual and content implementation.
+All factual site content lives in `content/`. Personal and approved project media belongs in `public/`. The documents in `DOCS/` remain the source of truth for identity, content, interaction, accessibility, and implementation decisions.
+
+Still required for complete direct links:
+
+- PDF CV in `public/documents/`
+- Verified LinkedIn profile URL
+- Anonymized screenshots for the featured BI case study
+
+Until the CV and LinkedIn URL are supplied, those actions open a pre-addressed email request instead of a broken or invented link.
