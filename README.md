@@ -1,42 +1,41 @@
-# El Houssaine Ouahad — Portfolio
+# El Houssaine Ouahad Portfolio
 
-A static, responsive portfolio for an AI Technician / Data Analyst. It is designed as a dark editorial data interface and can be deployed directly to Vercel without a build step.
+Next.js foundation for a personal Data Analyst portfolio. The project uses the App Router, TypeScript, Tailwind CSS, Motion for React, Lucide React, and local project assets.
 
-## Run locally
+## Foundation status
+
+This repository is intentionally in the foundation phase. It includes the application shell, identity tokens, typed content boundaries, and asset directories. The full editorial portfolio interface is not implemented yet.
+
+## Local development
 
 ```powershell
-npx serve .
+npm install
+npm run dev
 ```
 
-Then open the local URL shown in the terminal. Any static server works; for example, VS Code Live Server.
+Open `http://localhost:3000`.
 
-## Deploy to Vercel
+## Production check
 
-1. Push this repository to GitHub.
-2. In Vercel, choose **Add New → Project** and import the repository.
-3. Select **Other** as the framework preset. No build command or output directory is required.
-4. Deploy.
+```powershell
+npm run build
+npm run start
+```
 
-Or deploy from the repository folder with the Vercel CLI:
+## Vercel
+
+The repository is compatible with Vercel's Next.js preset. Import the repository in Vercel, or run:
 
 ```powershell
 npx vercel
 npx vercel --prod
 ```
 
-## Content to add before launch
+## Asset locations
 
-- A PDF CV, then replace the muted **CV — file to add** label with a link.
-- The LinkedIn profile URL, then replace the muted LinkedIn label with a link.
-- Anonymized screenshots from the Complete BI Project (and any work that can be shared) to strengthen the case study.
-- A public production URL can be added as the `og:url` metadata value in `index.html` after deployment.
+- `public/images/` — personal and approved project imagery
+- `public/icons/` — custom icons
+- `public/videos/` — approved, optimized video only
+- `public/documents/` — CV and downloadable documents
 
-## Structure
-
-```text
-index.html       Site structure and metadata
-style.css        Design tokens, responsive layout, animation styles
-script.js        Reveal behavior and reduced-motion support
-profile.png      Existing portrait asset (not used in the current editorial layout)
-DOCS/            Source-of-truth design documentation
-```
+The project documentation in `DOCS/` is the source of truth for the later visual and content implementation.
