@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Portfolio of El Houssaine Ouahad, Data Analyst and AI enthusiast.">
+  <title>Ouahad El Houssaine | Data Analyst & AI</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="page-background" aria-hidden="true">
+    <span class="background-orb background-orb--blue"></span>
+    <span class="background-orb background-orb--purple"></span>
+    <span class="background-grid"></span>
+  </div>
+
+  <main>
+    <section class="hero" aria-labelledby="intro-title">
+      <div class="name-wrap" id="nameWrap">
+        <h1 id="intro-title">
+          <span class="name">OUAHAD</span>
+          <span class="name second">EL HOUSSAINE</span>
+        </h1>
+      </div>
+
+      <div class="scroll-hint" id="scrollHint" aria-hidden="true">
+        <span>Scroll</span>
+        <span class="scroll-hint__line"></span>
+      </div>
+    </section>
+
+    <div class="section-profile" aria-label="Profile introduction">
+      <div class="profile-stage">
+        <div class="profile-card">
+          <img
+            src="profile.png"
+            alt="El Houssaine Ouahad"
+            class="profile-img"
+            id="profileImg"
+            width="2086"
+            height="2989"
+          >
+          <div class="accent-line" id="accentLine" aria-hidden="true"></div>
+          <p class="role" id="roleText">DATA ANALYST <span>|</span> AI</p>
+        </div>
+      </div>
+    </div>
+
+    <section class="about about-section reveal-section" aria-labelledby="about-title">
+      <div class="about__orb" aria-hidden="true"></div>
+
+      <div class="about__container">
+        <div class="about__intro">
+          <div class="about__heading">
+            <p class="section-label about-anim">Get to know me</p>
+            <h2 class="about-anim" id="about-title">About Me</h2>
+          </div>
+
+          <p class="about__text about-anim">
+            I am El Houssaine Ouahad, a Data Analyst student passionate about data,
+            artificial intelligence, automation, and building practical digital
+            solutions. I enjoy transforming raw information into clear insights,
+            dashboards, and smart tools that help people make better decisions.
+          </p>
+        </div>
+
+        <div class="about__cards">
+          <article class="expertise-card about-anim">
+            <span class="expertise-card__number" aria-hidden="true">01</span>
+            <h3>Data Analysis</h3>
+            <p>Python, Pandas, SQL, Power BI and dashboards.</p>
+          </article>
+
+          <article class="expertise-card about-anim">
+            <span class="expertise-card__number" aria-hidden="true">02</span>
+            <h3>Artificial Intelligence</h3>
+            <p>AI tools, GPT workflows, automation and smart assistants.</p>
+          </article>
+
+          <article class="expertise-card about-anim">
+            <span class="expertise-card__number" aria-hidden="true">03</span>
+            <h3>Web &amp; Digital Solutions</h3>
+            <p>Modern interfaces, portfolios, platforms and practical web projects.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
