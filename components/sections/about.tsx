@@ -1,15 +1,6 @@
-import { profile } from "@/content/profile";
 import { Reveal } from "@/components/motion/reveal";
 import { SectionHeading } from "@/components/ui/section-heading";
 
 export function About() {
-  return (
-    <section className="section about" id="about" aria-labelledby="about-title">
-      <Reveal><SectionHeading id="about-title" index="02" label="About" title="Structure first." accent="Meaning next." /></Reveal>
-      <div className="about-body">
-        <Reveal className="about-principle"><span>Working principle</span><p>Raw data becomes useful when someone gives it structure, meaning, and direction.</p></Reveal>
-        <Reveal className="about-copy" delay={.08}>{profile.about.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</Reveal>
-      </div>
-    </section>
-  );
+  return <section className="section about" id="about" aria-labelledby="about-title"><Reveal><SectionHeading id="about-title" index="01" label="About me" title="Technical roots." accent="A business lens." /></Reveal><div className="about-body"><Reveal className="about-principle"><span>My direction</span><p>A young Moroccan data analyst learning how to connect accurate technical work with clear business decisions.</p></Reveal><Reveal className="about-copy" delay={.08}><p>I&apos;m El Houssaine, a 21-year-old Junior Data Analyst from Tangier. My path began with computer maintenance and networks, then moved toward artificial intelligence and data analysis — a transition that taught me to look at both how systems work and why the information inside them matters.</p><p>Through academic and personal projects, I clean and explore data, prepare KPIs and reports, build Excel and Power BI dashboards, and use SQL and Python to turn raw information into useful insights. I also build simple web interfaces and explore applied AI concepts.</p><p>I work carefully, document what I do, and avoid making a dashboard before understanding the question. My goal is to help teams see their data clearly while continuing to grow through honest, practical work.</p></Reveal></div></section>;
 }

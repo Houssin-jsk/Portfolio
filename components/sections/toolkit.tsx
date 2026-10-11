@@ -1,13 +1,7 @@
+import { siteConfig } from "@/config/site";
 import { Reveal } from "@/components/motion/reveal";
 import { SectionHeading } from "@/components/ui/section-heading";
-import { BrandIcon } from "@/components/ui/brand-icon";
-import { skillGroups } from "@/content/skills";
 
 export function Toolkit() {
-  return (
-    <section className="section toolkit" id="toolkit" aria-labelledby="toolkit-title">
-      <Reveal><SectionHeading id="toolkit-title" index="05" label="Toolkit" title="Tools grouped" accent="by the job." /></Reveal>
-      <div className="tool-groups">{skillGroups.map((group) => <Reveal className="tool-group" key={group.label}><p>{group.label}</p><div>{group.skills.map((skill) => <span className="tool" key={skill.name}><BrandIcon icon={skill.icon} /><b>{skill.name}</b></span>)}</div></Reveal>)}</div>
-    </section>
-  );
+  return <section className="section toolkit" id="skills" aria-labelledby="skills-title"><Reveal><SectionHeading id="skills-title" index="03" label="Skills" title="Tools grouped" accent="by the work." /></Reveal><div className="skill-categories">{siteConfig.skills.map((group, index) => <Reveal className="skill-category" key={group.label}><div><span>{String(index + 1).padStart(2, "0")}</span><h3>{group.label}</h3></div><div className="tag-list large">{group.items.map((item) => <small key={item}>{item}</small>)}</div></Reveal>)}</div></section>;
 }
