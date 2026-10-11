@@ -1,10 +1,13 @@
 import { Github, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
+import { homepageStructuredData } from "@/lib/seo";
+import { serializeJsonLd } from "@/lib/serialize-json-ld";
 
 export default function Home() {
   return (
     <div className="waiting-page">
+      <script id="homepage-structured-data" type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(homepageStructuredData()) }} />
       <div className="ambient" aria-hidden="true" />
       <div className="background-grid" aria-hidden="true" />
       <header className="waiting-header">

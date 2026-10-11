@@ -3,6 +3,7 @@ import Link from "next/link";
 import { space } from "@/content/space";
 import { SpaceAbout, SpaceContact } from "@/components/design-preview/sections";
 import styles from "../preview.module.css";
+import { assertPreviewAccess } from "@/lib/preview-access";
 
 export const metadata: Metadata = {
   title: "About El Houssaine — OUAHAD SPACE",
@@ -11,6 +12,7 @@ export const metadata: Metadata = {
 };
 
 export default function AboutPage() {
+  assertPreviewAccess();
   return (
     <>
       <div className={styles.breadcrumb}><Link href="/design-preview">← Back to the space</Link></div>

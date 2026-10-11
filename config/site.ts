@@ -1,3 +1,5 @@
+import { seoConfig } from "./seo";
+
 export type ProjectCategory =
   | "Data Analysis"
   | "Business Intelligence"
@@ -22,9 +24,9 @@ export type Project = {
 };
 
 export const siteConfig = {
-  siteUrl: "https://www.ouahad.space",
+  siteUrl: seoConfig.origin,
   personal: {
-    name: "El Houssaine Ouahad",
+    name: seoConfig.name,
     age: 21,
     role: "Junior Data Analyst & AI Enthusiast",
     location: "Tangier, Morocco",
@@ -37,7 +39,7 @@ export const siteConfig = {
       "I turn raw data into clear insights, useful dashboards, and practical digital solutions.",
   },
   social: {
-    github: "https://github.com/Houssin-jsk",
+    github: seoConfig.social.github,
     linkedin: null as string | null,
   },
   navigation: [

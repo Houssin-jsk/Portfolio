@@ -1,5 +1,7 @@
+import { seoConfig } from "@/config/seo";
+
 export const profile = {
-  name: "El Houssaine Ouahad",
+  name: seoConfig.name,
   role: "Technicien Spécialisé en Intelligence Artificielle — Option Data Analyst",
   shortRole: "AI Technician / Data Analyst",
   positioning: "I turn raw data into clear insights, useful dashboards, and practical digital solutions.",
@@ -11,7 +13,7 @@ export const profile = {
 } as const;
 
 export const socialLinks = {
-  github: "https://github.com/Houssin-jsk",
+  github: seoConfig.social.github,
   portfolioRepository: "https://github.com/Houssin-jsk/Portfolio",
   linkedin: null,
   cv: null,

@@ -1,6 +1,9 @@
 import type { MetadataRoute } from "next";
-import { siteConfig } from "@/config/site";
+import { seoConfig } from "@/config/seo";
 
 export default function robots(): MetadataRoute.Robots {
-  return { rules: { userAgent: "*", allow: "/", disallow: "/api/" }, sitemap: `${siteConfig.siteUrl}/sitemap.xml` };
+  return {
+    rules: { userAgent: "*", allow: "/", disallow: ["/api/", "/design-preview"] },
+    sitemap: `${seoConfig.origin}/sitemap.xml`,
+  };
 }
