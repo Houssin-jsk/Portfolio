@@ -1,9 +1,7 @@
 import { SpaceHero, SpaceAbout, SpaceCreations, SpaceDiscover, SpaceContact } from "@/components/design-preview/sections";
 import styles from "./preview.module.css";
-import { assertPreviewAccess } from "@/lib/preview-access";
 
 export default function DesignPreview() {
-  assertPreviewAccess();
   return (
     <>
       <SpaceHero />

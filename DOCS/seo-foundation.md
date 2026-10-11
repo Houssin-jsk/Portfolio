@@ -28,13 +28,12 @@ Existing change frequency/priority values remain hints, not indexing promises.
 Robots permits `/`, excludes API and experimental paths, and advertises the
 canonical sitemap. The homepage has no noindex directive.
 
-Robots and noindex alone do not protect unpublished content. The preview layout
-and each preview page call `assertPreviewAccess()` outside `NODE_ENV=development`, covering all production
-builds and Vercel deployments, including preview deployments. A layout guard alone
-can leak rendered children in the RSC payload, so every future experimental page
-must call the shared guard before rendering too. The UI and source
-are preserved for `npm run dev`. Do not remove the guard until the pages are
-approved for public release. Robots is not authentication for future private data.
+The portrait refinement request explicitly makes `/design-preview` and its About
+page publicly accessible experiments. Their development-only guards have been
+removed; they keep noindex metadata, remain disallowed in robots, and stay outside
+the homepage-only sitemap. This is public preview access, not privacy protection.
+Any future private content needs authentication rather than robots/noindex rules.
+See `DOCS/portrait-preview.md` for the route fix and release verification.
 
 ## Future pages and English/French content
 
@@ -66,13 +65,14 @@ Stop any development/production preview before building because they share
 `.next`. Integration tests default to `http://localhost:3100`; set
 `SEO_TEST_BASE_URL` to another production test server when required. They check
 raw HTTP responses rather than relying on browser hydration: canonical metadata,
-single linked graph, indexability, sitemap URLs, robots, and unpublished-page 404s.
-Both HTML and RSC responses are checked for unpublished-content leakage.
+single linked graph, indexability, sitemap URLs, robots, public experimental-page
+200 responses with noindex, and unknown-page 404s. Unknown HTML/RSC responses are
+checked for content leakage.
 Unit tests cover script-breaking strings and multilingual JSON round trips.
 The public audit script follows a maximum of five redirects per URL without
 changing settings. No Search Console submission is performed.
 
-## Public audit — 2026-10-11
+## Historical SEO audit — 2026-10-11, before portrait refinement
 
 Local validation passed: lint, TypeScript, production build, two serialization
 tests, and six HTTP integration tests. Local and public sitemaps parsed as XML

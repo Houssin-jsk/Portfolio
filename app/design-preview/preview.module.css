@@ -20,11 +20,12 @@
 .header nav a { display: inline-flex; align-items: center; min-height: 44px; padding: .75rem .2rem; }
 .header nav a:hover, .footer a:hover { color: var(--brand-green); }
 .edition { color: var(--muted); font-size: .59rem; letter-spacing: .08em; text-transform: uppercase; }
-.hero { position: relative; isolation: isolate; display: grid; grid-template-columns: 1.2fr 1fr; gap: clamp(2rem, 5vw, 5rem); padding: 6rem var(--gutter) 4.5rem; align-items: center; }
-.heroCopy { position: relative; z-index: 1; min-width: 0; }
+.hero { position: relative; isolation: isolate; display: grid; grid-template-columns: 1.15fr 1fr; grid-template-areas: "heading portrait" "copy portrait"; column-gap: clamp(2rem, 5vw, 5rem); padding: 3rem var(--gutter) 3.5rem; align-items: center; }
+.heroHeading { grid-area: heading; align-self: end; position: relative; z-index: 1; min-width: 0; }
+.heroCopy { grid-area: copy; align-self: start; position: relative; z-index: 1; min-width: 0; }
 .eyebrow { display: flex; align-items: center; gap: .65rem; font-size: .66rem; font-weight: 600; letter-spacing: .11em; text-transform: uppercase; }
 .eyebrow > span { width: .45rem; height: .45rem; background: var(--brand-green); border-radius: 50%; }
-.hero h1 { margin-top: 1.25rem; font: 500 clamp(3rem, 5.8vw, 6rem)/1.04 var(--font-display), sans-serif; letter-spacing: -.075em; }
+.hero h1 { margin-top: 1.25rem; font: 500 clamp(3rem, 5.7vw, 6rem)/1.04 var(--font-display), sans-serif; letter-spacing: -.065em; }
 .spaceLabel { margin-top: 1.6rem !important; color: var(--brand-green); font: italic 1rem Georgia, serif; }
 .hero h1 > span { color: var(--brand-blue); }
 .heroIntro { max-width: 27rem; margin-top: 1.8rem !important; color: var(--muted); font-size: .96rem; line-height: 1.8; }
@@ -35,18 +36,18 @@
 .primaryButton:hover { background: var(--brand-green); }
 .textButton { display: inline-flex; align-items: center; gap: 1rem; min-height: 3rem; font-size: .75rem; border-bottom: 1px solid var(--line); }
 .textButton:hover { color: var(--brand-green); border-color: var(--brand-green); }
-.heroFoot { display: flex; flex-wrap: wrap; gap: .4rem 1.8rem; margin-top: 3rem; color: var(--muted); font-size: .59rem; }
-.artwork { position: relative; min-width: 0; }
-.artworkFrame { position: relative; aspect-ratio: 1; background: var(--brand-blue); overflow: hidden; }
-.artGrid { position: absolute; inset: 0; background-image: linear-gradient(#f7f5ef14 1px, transparent 1px), linear-gradient(90deg, #f7f5ef14 1px, transparent 1px); background-size: 12.5% 12.5%; }
-.orangeDisc { position: absolute; width: 53%; aspect-ratio: 1; background: var(--brand-orange); border-radius: 50%; top: 9%; left: 10%; }
-.greenPlane { position: absolute; bottom: 0; right: 0; width: 61%; height: 51%; background: var(--brand-green); clip-path: polygon(28% 0, 100% 0, 100% 100%, 0 100%); }
-.greenPlane > span { position: absolute; bottom: 12%; right: 12%; font: .6rem/2 monospace; color: var(--paper); }
-.waves { position: absolute; width: 118%; height: 98%; top: 4%; left: -9%; color: var(--paper); opacity: .83; }
-.artCross { position: absolute; top: 4%; right: 6%; color: var(--paper); font: 300 2.4rem/1 var(--font-display), sans-serif; }
-.artCoordinate { position: absolute; bottom: 5%; left: 5%; color: var(--paper); font: .52rem/1 monospace; letter-spacing: .07em; writing-mode: vertical-rl; transform: rotate(180deg); }
-.artwork > figcaption { display: flex; justify-content: space-between; gap: 1rem; padding-top: .8rem; color: var(--muted); font-size: .56rem; }
-.artwork > figcaption > span:last-child { font-family: monospace; }
+.heroFoot { display: flex; flex-wrap: wrap; gap: .4rem 1.8rem; margin-top: 2rem; color: var(--muted); font-size: .65rem; }
+.portraitWorld { grid-area: portrait; min-width: 0; position: relative; }
+.portraitStage { position: relative; isolation: isolate; height: clamp(420px, 39vw, 570px); overflow: hidden; }
+.portraitAtmosphere { position: absolute; inset: 4% 3% 7%; background: radial-gradient(ellipse at 50% 45%, color-mix(in srgb, var(--brand-blue) 24%, var(--paper)), transparent 72%); border-radius: 46% 54% 38% 62%; }
+.portraitTrace { position: absolute; inset: 14% 12% 17%; border: 1px solid var(--brand-orange); opacity: .5; border-radius: 49% 51% 65% 35%; transform: rotate(-18deg); }
+.heroPortrait { position: absolute; inset: auto 0 -24px; width: 100%; height: 112%; object-fit: contain; object-position: center bottom; z-index: 2; mask-image: linear-gradient(to bottom, #000 78%, transparent 99%); }
+.heroWaves { position: absolute; z-index: 1; width: 130%; height: 90%; left: -16%; bottom: -8%; color: var(--brand-blue); opacity: .32; }
+.heroOlive { position: absolute; z-index: 3; width: 22%; right: -2%; bottom: 8%; color: var(--brand-green); opacity: .7; transform: rotate(-12deg); }
+.worldNote { position: absolute; z-index: 3; left: 3%; bottom: 13%; font: italic .82rem Georgia, serif; color: var(--brand-green); writing-mode: vertical-rl; transform: rotate(180deg); }
+.portraitWorld figcaption { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: .65rem .5rem 0; font-size: .65rem; color: var(--muted); }
+.portraitWorld figcaption > span:first-child { font: 500 1rem var(--font-display), sans-serif; color: var(--ink); letter-spacing: -.035em; }
+.portraitWorld figcaption i { color: var(--brand-green); margin-left: .4rem; font-style: normal; }
 .palm { position: absolute; z-index: -1; top: -6rem; right: -4rem; width: min(55vw, 42rem); height: auto; color: var(--ink); opacity: var(--palm-opacity); filter: blur(2.5px); pointer-events: none; transform: rotate(-14deg); }
 .disciplineStrip { display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; padding: 1.8rem var(--gutter); border-block: 1px solid var(--line); font: 500 clamp(1rem, 2vw, 1.8rem)/1.3 var(--font-display), sans-serif; letter-spacing: -.035em; }
 .disciplineStrip i { font-style: normal; color: var(--brand-orange); font-size: 1.7rem; }
@@ -151,7 +152,7 @@
 .aboutCopy > .textButton { margin-top: 1.5rem; }
 @media (max-width: 1000px) {
   .edition { display: none; }
-  .hero { gap: 2rem; padding-top: 4rem; }
+  .hero { column-gap: 1.5rem; padding-top: 2.5rem; }
   .hero h1 { font-size: clamp(2.5rem, 5.7vw, 5rem); }
   .about { gap: 3rem; }
   .projectGrid { grid-template-columns: 1fr; gap: 2.5rem; }
@@ -166,12 +167,20 @@
   .header { gap: 1rem; flex-wrap: wrap; padding-block: 1.3rem; }
   .wordmark { font-size: 1.4rem; }
   .header nav { width: 100%; justify-content: space-between; gap: .5rem; font-size: .82rem; }
-  .hero { grid-template-columns: 1fr; gap: 2.8rem; padding-block: 3rem; }
-  .hero h1 { font-size: clamp(2.3rem, 10.3vw, 4.5rem); }
-  .heroIntro { font-size: .88rem; }
+  .hero { grid-template-columns: 1fr; grid-template-areas: "heading" "portrait" "copy"; gap: 1.4rem; padding-block: 1.5rem 2.5rem; }
+  .hero h1 { font-size: clamp(2.3rem, 10.3vw, 4.5rem); margin-top: .85rem; }
+  .spaceLabel { margin-top: .65rem !important; font-size: .9rem; }
+  .heroIntro { font-size: .88rem; margin-top: 0 !important; }
   .actions { flex-wrap: wrap; gap: 1rem 1.5rem; }
-  .heroFoot { margin-top: 2rem; }
-  .artwork { width: 100%; max-width: 30rem; justify-self: center; }
+  .heroFoot { margin-top: 1.25rem; }
+  .portraitWorld { width: 100%; max-width: 28rem; justify-self: center; }
+  .portraitStage { height: clamp(230px, 65vw, 290px); }
+  .heroPortrait { height: 118%; bottom: -15px; }
+  .portraitAtmosphere { inset: 0 13%; }
+  .portraitTrace { inset: 4% 18% 10%; }
+  .heroOlive { width: 17%; right: 7%; bottom: 5%; }
+  .worldNote { left: 8%; font-size: .7rem; }
+  .portraitWorld figcaption { padding-inline: 1rem; }
   .palm { width: 90%; top: 0; right: -8rem; }
   .disciplineStrip { flex-wrap: wrap; justify-content: center; column-gap: 1rem; row-gap: .5rem; padding-block: 1.3rem; font-size: .9rem; }
   .disciplineStrip i { font-size: 1rem; }

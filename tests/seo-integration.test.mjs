@@ -71,7 +71,21 @@ test('robots and sitemap advertise only the canonical published homepage', async
   assert.doesNotMatch(robots.body, /Disallow: \/\s*(?:\r?\n|$)/);
 });
 
-for (const path of ['/design-preview', '/design-preview/about', '/not-a-published-page']) {
+for (const path of ['/design-preview', '/design-preview/about']) {
+  test(`experimental route works in production but remains noindex: ${path}`, async () => {
+    const { response, body } = await request(path);
+    assert.equal(response.status, 200);
+    assert.match(body, /noindex/);
+    assert.match(body, /El Houssaine Ouahad/);
+    assert.equal(/type="application\/ld\+json"/.test(body), false);
+    if (path === '/design-preview') {
+      assert.match(body, /Curious mind/);
+      assert.match(body, /images%2Fprofile\.png/);
+    }
+  });
+}
+
+for (const path of ['/not-a-published-page']) {
   test(`production does not expose content or homepage JSON-LD at ${path}`, async () => {
     const { response, body } = await request(path);
     assert.equal(response.status, 404);

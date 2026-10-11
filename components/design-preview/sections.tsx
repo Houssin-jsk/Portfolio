@@ -12,25 +12,29 @@ export function SpaceHero() {
   return (
     <section className={styles.hero} aria-labelledby="hero-title">
       {designPreview.motifs.palm ? <PalmShadow className={styles.palm} /> : null}
-      <div className={styles.heroCopy}>
+      <div className={styles.heroHeading}>
         <p className={styles.eyebrow}><span aria-hidden="true" />{siteConfig.personal.name}</p>
-        <p className={styles.spaceLabel}>OUAHAD SPACE · Think. Make. Explore.</p>
-        <h1 id="hero-title">Room to think.<br /><span>Space to build.</span></h1>
-        <p className={styles.heroIntro}>A personal corner of the internet for <strong>AI, Data, and Web Development</strong>. A place to connect ideas, make useful things, and follow a little curiosity.</p>
+        <p className={styles.spaceLabel}>OUAHAD SPACE · A world taking shape</p>
+        <h1 id="hero-title">Curious mind.<br /><span>Open world.</span></h1>
+      </div>
+      <div className={styles.heroCopy}>
+        <p className={styles.heroIntro}>I&apos;m El Houssaine. I connect ideas across <strong>AI, Data, and Web Development</strong>. This is my space for things I make, questions I follow, and discoveries along the way.</p>
         <div className={styles.actions}>
           <a className={styles.primaryButton} href="#creations">Explore the creations <span aria-hidden="true">↗</span></a>
           <a className={styles.textButton} href="#discover">Take a look around <span aria-hidden="true">↓</span></a>
         </div>
         <div className={styles.heroFoot}><span>Always asking. Always learning.</span><span>A space that grows with the ideas.</span></div>
       </div>
-      <figure className={styles.artwork} aria-label="Abstract blue composition with an orange circle, green plane, and flowing contour lines">
-        <div className={styles.artworkFrame}>
-          <div className={styles.artGrid} /><div className={styles.orangeDisc} />
-          <div className={styles.greenPlane}><span>01 — Explore<br />02 — Connect<br />03 — Create</span></div>
-          {designPreview.motifs.waves ? <WaveLines className={styles.waves} /> : null}
-          <span className={styles.artCross} aria-hidden="true">+</span><span className={styles.artCoordinate}>OU — SPACE 002</span>
+      <figure className={styles.portraitWorld}>
+        <div className={styles.portraitStage}>
+          <div className={styles.portraitAtmosphere} aria-hidden="true" />
+          <div className={styles.portraitTrace} aria-hidden="true" />
+          {designPreview.motifs.waves ? <WaveLines className={styles.heroWaves} /> : null}
+          <Image className={styles.heroPortrait} src={siteConfig.personal.portrait} alt="El Houssaine Ouahad" width={2086} height={2989} sizes="(max-width: 700px) 280px, (max-width: 1000px) 42vw, 480px" priority />
+          {designPreview.motifs.olive ? <OliveBranch className={styles.heroOlive} /> : null}
+          <span className={styles.worldNote}>Explore. Connect. Create.</span>
         </div>
-        <figcaption><span>Structure meets possibility.</span><span>AI / DATA / WEB</span></figcaption>
+        <figcaption><span>El Houssaine Ouahad</span><span>Always exploring <i aria-hidden="true">↗</i></span></figcaption>
       </figure>
     </section>
   );
