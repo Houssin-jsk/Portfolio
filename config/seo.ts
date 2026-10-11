@@ -6,6 +6,10 @@ export const seoConfig = {
   focus: ["Artificial Intelligence", "Data", "Web Development"],
   social: { github: "https://github.com/Houssin-jsk" },
   defaultLanguage: "en",
+  site: {
+    title: "OUAHAD SPACE — El Houssaine Ouahad",
+    description: "The personal digital space of El Houssaine Ouahad. Exploring Artificial Intelligence, Data and Web Development through curiosity, ideas and creation.",
+  },
   comingSoon: {
     title: "El Houssaine Ouahad — Portfolio",
     description: "The new portfolio of El Houssaine Ouahad is currently being built. Exploring Artificial Intelligence, Data and Web Development.",

@@ -1,5 +1,5 @@
-// Independent switches for the OUAHAD SPACE graphic system. No effect on /.
-export const designPreview = {
+// Shared visual controls. Project selection is preserved for future phases.
+export const spaceConfig = {
   motifs: { palm: true, olive: true, waves: true },
   selectedProjects: [
     "energy-consumption-bi-dashboard",

@@ -1,19 +1,19 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { space } from "@/content/space";
-import { SpaceAbout, SpaceContact } from "@/components/design-preview/sections";
-import styles from "../preview.module.css";
+import { SpaceAbout } from "./sections";
+import { SpaceContact } from "./future-sections";
+import styles from "./space.module.css";
 
 export const metadata: Metadata = {
   title: "About El Houssaine — OUAHAD SPACE",
-  alternates: { canonical: "/design-preview/about" },
-  openGraph: { title: "About El Houssaine — OUAHAD SPACE", url: "/design-preview/about" },
+  // Register a canonical path only if a standalone About route is published.
 };
 
-export default function AboutPage() {
+export default function FutureAbout() {
   return (
     <>
-      <div className={styles.breadcrumb}><Link href="/design-preview">← Back to the space</Link></div>
+      <div className={styles.breadcrumb}><Link href="/">← Back to the space</Link></div>
       <SpaceAbout fullPage />
       <section className={styles.story} aria-labelledby="story-title">
         <p className={styles.sectionLabel}>A path shaped by curiosity</p>

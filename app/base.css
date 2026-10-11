@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: light; }
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: #f7f5ef; color: #10212b; font-family: var(--font-body), Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+a { color: inherit; text-decoration: none; -webkit-tap-highlight-color: transparent; }
+svg, img { display: block; }
+:focus-visible { outline: 2px solid #077f64; outline-offset: 5px; }
+::selection { background: #f3a339; color: #10212b; }

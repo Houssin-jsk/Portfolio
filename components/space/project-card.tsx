@@ -1,5 +1,5 @@
 import type { Project } from "@/config/site";
-import styles from "@/app/design-preview/preview.module.css";
+import styles from "./space.module.css";
 
 type ProjectCardProps = { project: Project; index: number; variant: "data" | "ai" | "web" };
 

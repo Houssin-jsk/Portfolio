@@ -46,7 +46,7 @@ export function homepageStructuredData() {
       {
         "@type": "WebSite", "@id": websiteId,
         name: seoConfig.brand, url: homepage,
-        description: seoConfig.comingSoon.description,
+        description: seoConfig.site.description,
         inLanguage: seoConfig.defaultLanguage,
         author: { "@id": personId },
         about: { "@id": personId },

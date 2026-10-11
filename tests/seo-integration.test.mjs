@@ -9,13 +9,13 @@ async function request(path, headers) {
   return { response, body: await response.text() };
 }
 
-test('homepage is indexable and serves consistent metadata without changing Coming Soon', async () => {
+test('V3 homepage is indexable, has correct metadata, and exposes only Hero and About', async () => {
   const { response, body } = await request('/');
   assert.equal(response.status, 200);
   assert.doesNotMatch(response.headers.get('x-robots-tag') || '', /noindex/i);
   assert.match(body, /<html[^>]*lang="en"/);
-  assert.ok(body.includes(`<title>${seoConfig.comingSoon.title}</title>`));
-  assert.ok(body.includes(`name="description" content="${seoConfig.comingSoon.description}"`));
+  assert.ok(body.includes(`<title>${seoConfig.site.title}</title>`));
+  assert.ok(body.includes(`name="description" content="${seoConfig.site.description}"`));
   const links = [...body.matchAll(/<link[^>]*rel="canonical"[^>]*href="([^"]+)"/g)];
   assert.equal(links.length, 1);
   assert.equal(new URL(links[0][1]).href, canonical);
@@ -25,8 +25,18 @@ test('homepage is indexable and serves consistent metadata without changing Comi
   assert.doesNotMatch(body, /<meta[^>]*name="robots"[^>]*content="[^"]*noindex/i);
   assert.doesNotMatch(body, /<meta[^>]*name="keywords"/);
   assert.doesNotMatch(body, /hrefLang=/i);
-  assert.match(body, /Something new<br\s*\/>is taking/);
-  assert.match(body, /New portfolio in progress/);
+  assert.match(body, /Curious mind/);
+  assert.match(body, /images%2Fprofile\.png/);
+  assert.equal([...body.matchAll(/<section\b/g)].length, 2);
+  assert.doesNotMatch(body, /New portfolio in progress|Something new|id="(?:creations|discover|explorations|thoughts|contact)"|Applied AI Project|The next idea starts here/);
+  const ids = new Set([...body.matchAll(/\bid="([^"]+)"/g)].map(match => match[1]));
+  for (const match of body.matchAll(/<a\b[^>]*href="([^"]+)"/g)) {
+    const target = new URL(match[1], base);
+    if (target.origin === new URL(base).origin) {
+      assert.equal(target.pathname, '/');
+      if (target.hash) assert.ok(ids.has(target.hash.slice(1)), `Broken homepage anchor: ${target.hash}`);
+    }
+  }
 });
 
 test('one server-rendered JSON-LD graph connects verified Person and WebSite', async () => {
@@ -44,6 +54,7 @@ test('one server-rendered JSON-LD graph connects verified Person and WebSite', a
   assert.equal(website.url, canonical);
   assert.equal(person.name, seoConfig.name);
   assert.equal(website.name, seoConfig.brand);
+  assert.equal(website.description, seoConfig.site.description);
   assert.deepEqual(person.sameAs, [seoConfig.social.github]);
   assert.deepEqual(person.knowsAbout, [...seoConfig.focus]);
   assert.equal(website.author['@id'], person['@id']);
@@ -71,17 +82,12 @@ test('robots and sitemap advertise only the canonical published homepage', async
   assert.doesNotMatch(robots.body, /Disallow: \/\s*(?:\r?\n|$)/);
 });
 
-for (const path of ['/design-preview', '/design-preview/about']) {
-  test(`experimental route works in production but remains noindex: ${path}`, async () => {
+for (const [path, destination] of [['/design-preview', '/'], ['/design-preview/about', '/#about']]) {
+  test(`retired preview permanently redirects to its homepage replacement: ${path}`, async () => {
     const { response, body } = await request(path);
-    assert.equal(response.status, 200);
-    assert.match(body, /noindex/);
-    assert.match(body, /El Houssaine Ouahad/);
-    assert.equal(/type="application\/ld\+json"/.test(body), false);
-    if (path === '/design-preview') {
-      assert.match(body, /Curious mind/);
-      assert.match(body, /images%2Fprofile\.png/);
-    }
+    assert.equal(response.status, 308);
+    assert.equal(new URL(response.headers.get('location'), base).href, new URL(destination, base).href);
+    assert.doesNotMatch(body, /Curious mind|type="application\/ld\+json"/);
   });
 }
 

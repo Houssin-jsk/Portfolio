@@ -1,7 +1,9 @@
-import { SpaceHero, SpaceAbout, SpaceCreations, SpaceDiscover, SpaceContact } from "@/components/design-preview/sections";
-import styles from "./preview.module.css";
+import { SpaceHero, SpaceAbout } from "./sections";
+import { SpaceCreations, SpaceDiscover, SpaceContact } from "./future-sections";
+import styles from "./space.module.css";
 
-export default function DesignPreview() {
+// Preserved assembly for later phases; no public route mounts this component.
+export default function FutureHomepage() {
   return (
     <>
       <SpaceHero />

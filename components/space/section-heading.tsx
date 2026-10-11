@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import styles from "@/app/design-preview/preview.module.css";
+import styles from "./space.module.css";
 
 export function SectionHeading({ id, label, title, description }: { id: string; label: string; title: ReactNode; description?: ReactNode }) {
   return (
