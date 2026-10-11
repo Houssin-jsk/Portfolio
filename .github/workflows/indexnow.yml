@@ -1,0 +1,71 @@
+name: IndexNow after production deployment
+
+on:
+  deployment_status:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: indexnow-production
+  cancel-in-progress: false
+
+jobs:
+  notify:
+    if: >-
+      github.repository == 'Houssin-jsk/Portfolio' &&
+      ((github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main') ||
+      (github.event.deployment_status.state == 'success' &&
+      github.event.deployment.environment == 'Production' &&
+      github.event.deployment.creator.login == 'vercel[bot]' &&
+      github.event.deployment_status.creator.login == 'vercel[bot]'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ github.event.deployment.sha || github.sha }}
+          persist-credentials: false
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '24'
+
+      - name: Restore notification journal
+        run: node --experimental-strip-types scripts/indexnow/restore.mjs
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Verify production and plan changed URLs
+        id: plan
+        run: node --experimental-strip-types scripts/indexnow/run.mjs --plan
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      # Persist before POST. If a response/runner is lost, the next run will not
+      # blindly submit the same content again. No key material is in this file.
+      - name: Persist pending journal before submission
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: indexnow-state-pending
+          path: .indexnow/state.json
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 90
+
+      - name: Submit changed URLs
+        run: node --experimental-strip-types scripts/indexnow/run.mjs --submit
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Persist final journal
+        if: always() && steps.plan.outcome == 'success'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: indexnow-state-final
+          path: .indexnow/state.json
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 90
