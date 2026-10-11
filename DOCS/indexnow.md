@@ -47,6 +47,10 @@ deployment identifiers, and receipts are stored, never key material. A pending
 journal artifact is uploaded **before** the POST; a separate final artifact is
 saved afterwards, including on a failed submission. The next run restores the
 newest journal from this workflow's production-gated runs, not unrelated workflows.
+Selection prefers final receipts within each run attempt, retains earlier attempts
+on reruns, and uses creation timestamps across runs. Artifact IDs are not treated
+as chronological. Artifact names include the attempt to avoid immutable-name
+collisions on reruns; the first version's unsuffixed artifacts remain supported.
 Vercel uses SHA deployment refs, so restoration does not assume the workflow run's
 branch field literally says main; the planner verifies the actual main commit.
 Duplicate webhook delivery, redeploying unchanged content, and rerunning the job
@@ -115,7 +119,7 @@ No UI, SEO metadata, structured data, sitemap, robots, or domain settings change
 Acceptance by IndexNow does not guarantee indexing or ranking. Google Search
 Console is separate and no submission to it is performed.
 
-Local validation: six IndexNow tests, two SEO serialization tests, six SEO HTTP
+Local validation: seven IndexNow tests, two SEO serialization tests, six SEO HTTP
 tests, lint, TypeScript, and production build passed. Workflow YAML was parsed;
 official action SHAs were resolved from their release tags. The live dry run
 verified production deployment/key and found one eligible page without POSTing

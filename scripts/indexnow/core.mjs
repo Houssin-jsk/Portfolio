@@ -88,6 +88,23 @@ export function eligibleEvent(event, config, headSha, latestDeployment) {
     /^[a-f0-9]{40}$/.test(event.deployment?.sha || '') && event.deployment.sha === headSha &&
     event.deployment.id === latestDeployment.id;
 }
+export function latestJournal(artifacts) {
+  // Artifact IDs are not chronological. Prefer final over pending within each
+  // run attempt, then the latest attempt per run and creation time across runs.
+  const runs = new Map();
+  for (const artifact of artifacts) {
+    const match = artifact.name.match(/^indexnow-state-(pending|final)(?:-(\d+))?$/);
+    if (!match || artifact.expired || !Number.isFinite(Date.parse(artifact.created_at))) continue;
+    const attempt = Number(match[2] || 1);
+    const run = runs.get(artifact.runId);
+    if (!run || attempt > run.attempt) runs.set(artifact.runId, { attempt, artifact, date: Date.parse(artifact.created_at), final: match[1] === 'final' });
+    else if (attempt === run.attempt) {
+      run.date = Math.max(run.date, Date.parse(artifact.created_at));
+      if (match[1] === 'final') { run.artifact = artifact; run.final = true; }
+    }
+  }
+  return [...runs.values()].sort((a, b) => b.date - a.date)[0]?.artifact;
+}
 export async function submitBatch({ key, keyLocation, urls, config, fetcher = fetch }) {
   if (!urls.length) return null;
   if (config.endpoint !== 'https://api.indexnow.org/indexnow' || urls.length > 10000 ||

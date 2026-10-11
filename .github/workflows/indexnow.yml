@@ -49,7 +49,7 @@ jobs:
       - name: Persist pending journal before submission
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
-          name: indexnow-state-pending
+          name: indexnow-state-pending-${{ github.run_attempt }}
           path: .indexnow/state.json
           include-hidden-files: true
           if-no-files-found: error
@@ -64,7 +64,7 @@ jobs:
         if: always() && steps.plan.outcome == 'success'
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
-          name: indexnow-state-final
+          name: indexnow-state-final-${{ github.run_attempt }}
           path: .indexnow/state.json
           include-hidden-files: true
           if-no-files-found: error

@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { hash, canonicalUrl, sitemapUrls, robotsAllows, pageContent, planChanges, eligibleEvent, submitBatch } from '../scripts/indexnow/core.mjs';
+import { hash, canonicalUrl, sitemapUrls, robotsAllows, pageContent, planChanges, eligibleEvent, latestJournal, submitBatch } from '../scripts/indexnow/core.mjs';
 
 const origin = 'https://www.ouahad.space', url = `${origin}/`;
 const html = (text = 'Something new', build = 'one') => `<!doctype html><html><head><title>OUAHAD SPACE</title><meta name="description" content="A personal space"><link rel="canonical" href="${origin}"></head><body><!--${build}--><main class="${build}"><h1>${text}</h1><a href="/">Home</a></main><svg><path d="${build}"></path></svg><script>${build}</script></body></html>`;
@@ -70,4 +70,19 @@ test('official POST handles 200/202, rejects errors and never includes provider 
   await assert.rejects(submitBatch({ key: fixtureKey, keyLocation: `${origin}/fixture.txt`, urls: [url], config, fetcher: async () => { throw new Error(fixtureKey); } }), error => !error.message.includes(fixtureKey) && /uncertain/.test(error.message));
   await assert.rejects(submitBatch({ key: fixtureKey, keyLocation: `${origin}/fixture.txt`, urls: ['https://example.com/'], config, fetcher }));
   assert.equal(calls, 1);
+});
+
+test('journal restoration prefers final receipts, creation times, and latest run attempts rather than artifact IDs', () => {
+  const record = (id, name, time, runId = 1) => ({ id, name, created_at: `2026-10-11T18:28:${time}Z`, runId, expired: false });
+  const pending = record(900, 'indexnow-state-pending', '54');
+  const final = record(100, 'indexnow-state-final', '55');
+  assert.equal(latestJournal([pending, final]).id, 100);
+  assert.equal(latestJournal([final, pending]).id, 100);
+  const rerun = record(50, 'indexnow-state-pending-2', '56');
+  assert.equal(latestJournal([pending, final, rerun]).id, 50);
+  const rerunFinal = record(40, 'indexnow-state-final-2', '57');
+  assert.equal(latestJournal([rerunFinal, pending, final, rerun]).id, 40);
+  const newRun = record(30, 'indexnow-state-final-1', '58', 2);
+  assert.equal(latestJournal([newRun, rerunFinal, final]).id, 30);
+  assert.equal(latestJournal([{ ...newRun, expired: true }, final]).id, 100);
 });

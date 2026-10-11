@@ -2,6 +2,7 @@
 import { mkdir, writeFile, unlink } from 'node:fs/promises';
 import { execFileSync } from 'node:child_process';
 import { indexNowConfig as config } from '../../config/indexnow.mjs';
+import { latestJournal } from './core.mjs';
 
 const directory = '.indexnow';
 async function api(path, binary = false) {
@@ -19,15 +20,14 @@ try {
   // Vercel deployments use a SHA ref, so deployment_status runs need not have
   // head_branch literally "main". The workflow and planner enforce main's SHA.
   const runs = await api(`actions/workflows/${workflow.id}/runs?per_page=30`);
-  let artifact;
+  const artifacts = [];
   for (const run of runs.workflow_runs) {
-    if (String(run.id) === process.env.GITHUB_RUN_ID) continue;
+    // Include prior attempts of the current run: a rerun must retain its receipts.
     if (!['deployment_status', 'workflow_dispatch'].includes(run.event) || run.head_repository?.full_name !== config.repository) continue;
     const list = await api(`actions/runs/${run.id}/artifacts?per_page=100`);
-    const candidate = list.artifacts.filter(item => !item.expired && ['indexnow-state-pending', 'indexnow-state-final'].includes(item.name))
-      .sort((a, b) => b.id - a.id)[0];
-    if (candidate && (!artifact || candidate.id > artifact.id)) artifact = candidate;
+    artifacts.push(...list.artifacts.map(item => ({ ...item, runId: run.id })));
   }
+  const artifact = latestJournal(artifacts);
   if (!artifact) { console.log('IndexNow: no retained journal; next phase will baseline without notifying.'); }
   else {
     const archive = `${directory}/journal.zip`;
