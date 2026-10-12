@@ -1,0 +1,19 @@
+/* This decorative Living Orbit intentionally runs independently of OS motion preferences. */
+.orbit { color: var(--brand-blue, #3590df); transition: color 180ms ease-out; }
+.line { stroke: currentColor; stroke-dasharray: 1; stroke-dashoffset: 0; animation: reveal 1.6s cubic-bezier(.16,1,.3,1) both; }
+@keyframes reveal { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+[data-orbit-active="true"] > .orbit { color: var(--brand-green, #077f64); }
+[data-orbit-paused="true"] .line, [data-orbit-paused="true"] .traveler, [data-orbit-paused="true"] .glint { animation-play-state: paused; }
+.traveler { opacity: 0; animation: arrive 0s 1.6s forwards; }
+@keyframes arrive { to { opacity: 1; } }
+.light { transform: scale(var(--light-scale, 1)); pointer-events: auto; cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent; outline: none; }
+.target { stroke: none; }
+.optics { pointer-events: none; stroke: none; }
+.light:focus-visible .target { stroke: var(--brand-green, #077f64); stroke-width: 1.5; }
+.message { fill: var(--brand-green, #077f64); stroke: none; font: italic 11px/1.5 Georgia, serif; opacity: 0; transition: opacity 200ms ease-out; pointer-events: none; }
+.message[data-visible="true"] { opacity: 1; }
+.announcement { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+/* Hold: 8.0–8.55s of each lap. Center the 300ms glint inside that 550ms pause. */
+.glint { opacity: 0; animation: opticalGlint 8.55s linear 9.725s infinite; }
+@keyframes opticalGlint { 0%, 3.508772%, 100% { opacity: 0; } 1.228070% { opacity: .65; } }
