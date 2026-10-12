@@ -1,0 +1,52 @@
+/* Shared tokens: a deliberate departure, a crisp press, a quiet return. */
+.control {
+  --action-duration: 220ms;
+  --action-press-duration: 80ms;
+  --action-ease: cubic-bezier(.22,.75,.25,1);
+  --action-accent: var(--brand-green, #077f64);
+  --action-x: 4px;
+  --action-y: -3px;
+  display: inline-flex; align-items: center; justify-content: center; gap: .6rem;
+  min-width: 44px; min-height: 44px; touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+.control[data-motion="external"] { --action-accent: var(--brand-blue, #3590df); --action-x: 4px; --action-y: -4px; }
+.control[data-motion="down"] { --action-x: 0px; --action-y: 4px; }
+.control[data-motion="up"] { --action-x: 0px; --action-y: -4px; }
+.label { position: relative; }
+.label::after { content: ''; position: absolute; left: 0; right: 0; bottom: -5px; height: 1px; background: var(--action-accent); transform: scaleX(0); transform-origin: left; transition: transform var(--action-duration) var(--action-ease); }
+.frame {
+  position: relative; display: inline-flex; align-items: center; justify-content: center;
+  flex: 0 0 auto; width: 30px; height: 30px; pointer-events: none;
+  color: var(--action-accent); border: 1px solid color-mix(in srgb, var(--action-accent) 30%, transparent);
+  border-radius: 9px 2px 9px 2px; background: color-mix(in srgb, var(--action-accent) 4%, transparent);
+  transition: background var(--action-duration), border-color var(--action-duration), color var(--action-duration), transform var(--action-press-duration) var(--action-ease);
+}
+.control[data-motion="forward"] .frame { border-color: transparent; background: transparent; border-radius: 0; }
+.frame::after { content: ''; position: absolute; width: 14px; height: 6px; bottom: 3px; left: 4px; border-bottom: 1px solid currentColor; border-left: 1px solid currentColor; border-radius: 0 0 0 6px; opacity: .45; transform-origin: left; transition: opacity var(--action-duration), transform var(--action-duration) var(--action-ease); }
+.control[data-motion="forward"] .frame::after { width: 22px; height: 10px; bottom: 1px; left: 1px; }
+.control[data-motion="up"] .frame { border-radius: 2px 9px 2px 9px; }
+.control[data-motion="up"] .frame::after { width: 6px; height: 14px; bottom: 3px; left: 3px; }
+.glyph { display: inline-flex; transition: transform var(--action-duration) var(--action-ease); }
+.glyph svg { transition: stroke-width var(--action-duration); }
+.control:focus-visible { outline: 2px solid var(--action-accent); outline-offset: 4px; border-radius: 2px; }
+.control:focus-visible .frame { background: color-mix(in srgb, var(--action-accent) 12%, transparent); border-color: var(--action-accent); }
+.control:focus-visible .glyph { transform: translate(var(--action-x), var(--action-y)); }
+.control:focus-visible .label::after { transform: scaleX(1); }
+.control:focus-visible .frame::after { opacity: 1; transform: scaleX(.7); }
+@media (hover: hover) and (pointer: fine) {
+  .control:not(:disabled):hover .frame { background: color-mix(in srgb, var(--action-accent) 12%, transparent); border-color: var(--action-accent); }
+  .control:not(:disabled):hover .glyph { transform: translate(var(--action-x), var(--action-y)); }
+  .control:not(:disabled):hover .glyph svg { stroke-width: 1.9; }
+  .control:not(:disabled):hover .label::after { transform: scaleX(1); }
+  .control:not(:disabled):hover .frame::after { opacity: 1; transform: scaleX(.7); }
+}
+.control:not(:disabled):active .frame { background: var(--action-accent); border-color: var(--action-accent); color: var(--paper, #f7f5ef); transform: scale(.93); transition-duration: var(--action-press-duration); }
+.control:not(:disabled):active .glyph { transform: translate(0, 1px); transition-duration: var(--action-press-duration); }
+.control:not(:disabled):active .glyph svg { color: inherit; stroke-width: 2; }
+.control:disabled { cursor: not-allowed; opacity: .5; }
+@media (max-width: 600px) { .control[data-motion="forward"] .frame { width: 22px; height: 26px; } .control[data-motion="forward"] .frame::after { width: 18px; } }
+@media (prefers-reduced-motion: reduce) {
+  .control, .label::after, .frame, .frame::after, .glyph, .glyph svg { transition: none; }
+  .control:not(:disabled):is(:hover, :focus-visible, :active) .glyph, .control:not(:disabled):active .frame, .control:not(:disabled):is(:hover, :focus-visible) .frame::after { transform: none; }
+}

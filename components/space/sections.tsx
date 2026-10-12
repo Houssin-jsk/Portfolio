@@ -1,37 +1,34 @@
 import Image from "next/image";
 import { siteConfig } from "@/config/site";
-import { spaceConfig } from "@/config/space";
 import { space } from "@/content/space";
-import { PalmShadow, OliveBranch, WaveLines } from "./motifs";
-import styles from "./space.module.css";
+import { ScrollDownIcon } from "./icons";
+import { IconLink } from "./icon-action";
+import styles from "./identity.module.css";
 
 export function SpaceHero() {
   return (
     <section className={styles.hero} aria-labelledby="hero-title">
-      {spaceConfig.motifs.palm ? <PalmShadow className={styles.palm} /> : null}
       <div className={styles.heroHeading}>
-        <p className={styles.eyebrow}><span aria-hidden="true" />{siteConfig.personal.name}</p>
-        <p className={styles.spaceLabel}>OUAHAD SPACE · A world taking shape</p>
-        <h1 id="hero-title">Curious mind.<br /><span>Open world.</span></h1>
+        <p className={styles.kicker}>OUAHAD SPACE <span>—</span> The world of El Houssaine Ouahad</p>
+        <h1 id="hero-title">A curious mind.</h1>
+        <p className={styles.heroSubtitle}>An open world.</p>
       </div>
-      <div className={styles.heroCopy}>
-        <p className={styles.heroIntro}>I&apos;m El Houssaine. I connect ideas across <strong>AI, Data, and Web Development</strong>. This is my space for things I make, questions I follow, and discoveries along the way.</p>
-        <div className={styles.actions}>
-          <a className={styles.primaryButton} href="#about">Behind the space <span aria-hidden="true">↓</span></a>
-        </div>
-        <div className={styles.heroFoot}><span>Always asking. Always learning.</span><span>A space that grows with the ideas.</span></div>
-      </div>
-      <figure className={styles.portraitWorld}>
-        <div className={styles.portraitStage}>
-          <div className={styles.portraitAtmosphere} aria-hidden="true" />
-          <div className={styles.portraitTrace} aria-hidden="true" />
-          {spaceConfig.motifs.waves ? <WaveLines className={styles.heroWaves} /> : null}
-          <Image className={styles.heroPortrait} src={siteConfig.personal.portrait} alt="El Houssaine Ouahad" width={2086} height={2989} sizes="(max-width: 700px) 280px, (max-width: 1000px) 42vw, 480px" priority />
-          {spaceConfig.motifs.olive ? <OliveBranch className={styles.heroOlive} /> : null}
-          <span className={styles.worldNote}>Explore. Connect. Create.</span>
-        </div>
-        <figcaption><span>El Houssaine Ouahad</span><span>Always exploring <i aria-hidden="true">↗</i></span></figcaption>
+      <figure className={styles.portraitScene}>
+        <svg className={styles.orbit} viewBox="0 0 900 550" fill="none" aria-hidden="true">
+          <ellipse cx="450" cy="285" rx="420" ry="150" transform="rotate(-22 450 285)" />
+        </svg>
+        <Image className={styles.heroPortrait} src={siteConfig.personal.portrait} alt="El Houssaine Ouahad" width={2086} height={2989} sizes="(max-width: 600px) 86vw, (max-width: 900px) 420px, 510px" priority />
+        <figcaption>El Houssaine Ouahad <span>Always exploring.</span></figcaption>
       </figure>
+      <div className={styles.heroIntro}>
+        <p>A place for connecting ideas,<br className={styles.desktopBreak} /> questioning the obvious,<br className={styles.desktopBreak} /> and making something new.</p>
+        <IconLink className={styles.aboutLink} href="#about" motion="down" icon={<ScrollDownIcon />}>Meet the mind behind it</IconLink>
+      </div>
+      <div className={styles.focus}>
+        <p className={styles.smallLabel}>My fields of exploration</p>
+        <ul><li>Artificial Intelligence</li><li>Data</li><li>Web Development</li></ul>
+      </div>
+      <div className={styles.heroBottom}><span>A personal digital universe</span><span>Curiosity is the starting point.</span></div>
     </section>
   );
 }
@@ -40,20 +37,16 @@ export function SpaceAbout({ fullPage = false }: { fullPage?: boolean }) {
   const Heading = fullPage ? "h1" : "h2";
   return (
     <section id="about" className={styles.about} aria-labelledby="about-title">
-      <div className={styles.aboutSide}>
-        <p className={styles.sectionLabel}>01 / Behind the space</p>
-        <div className={styles.portrait}><Image src={siteConfig.personal.portrait} alt="El Houssaine Ouahad" width={300} height={360} sizes="(max-width: 700px) 160px, 220px" /></div>
-        <p className={styles.portraitCaption}>A curious mind. A practical approach.</p>
+      <div className={styles.aboutHeading}>
+        <p className={styles.smallLabel}>01 / About Me</p>
+        <Heading id="about-title">Connecting dots.<br /><em>Opening possibilities.</em></Heading>
       </div>
-      <div className={styles.aboutCopy}>
-        <Heading id="about-title">A little analytical.<br />A little <em>unexpected.</em></Heading>
-        <p>{space.about.introduction}</p>
-        <p>{space.about.background}</p>
-        <p>{space.about.approach}</p>
+      <div className={styles.aboutLead}><p>{space.about.introduction}</p></div>
+      <div className={styles.aboutStory}>
+        <div><span className={styles.smallLabel}>Where it began</span><p>{space.about.background}</p></div>
+        <div><span className={styles.smallLabel}>How he thinks</span><p>{space.about.approach}</p></div>
       </div>
-      {spaceConfig.motifs.olive ? <OliveBranch className={styles.olive} /> : null}
+      <div className={styles.aboutSignature}><Image src="/icons/logo_%23077F64.png" alt="" width={1280} height={1280} sizes="140px" /><p>Question. Connect.<br /><em>Keep exploring.</em></p></div>
     </section>
   );
 }
-
-

@@ -16,7 +16,7 @@ wave contours, palm shadows, olive branches, local fonts, and reduced-motion
 support are preserved.
 
 About uses three third-person paragraphs covering identity, childhood interest,
-four years in maintenance/networks, subsequent AI/Data Analyst studies, and a
+two years in maintenance/networks during high school, two years in an AI/Data Analyst Specialized Technician program, and a
 creative, questioning, continuously learning approach. No expertise or experience
 claims were added.
 

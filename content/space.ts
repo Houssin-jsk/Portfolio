@@ -6,7 +6,7 @@ export const space = {
   ],
   about: {
     introduction: "El Houssaine Ouahad is a curious, creative technology enthusiast working across Artificial Intelligence, Data, and Web Development.",
-    background: "His interest in technology began in childhood. Four years studying computer maintenance and networks laid the groundwork for his later studies in Artificial Intelligence, with a Data Analyst option.",
+    background: "His journey in technology began in childhood and continued through two years studying Computer Maintenance and Networks during high school, followed by a two-year Specialized Technician program in Artificial Intelligence, with a Data Analyst specialization.",
     approach: "He enjoys questioning assumptions, connecting ideas, and exploring both conventional and unconventional possibilities. Experimenting with practical solutions and continuous self-learning keep his work open to new perspectives.",
   },
 } as const;

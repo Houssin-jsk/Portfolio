@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { seoConfig } from '../config/seo.ts';
+import { brandConfig } from '../config/brand.ts';
 
 const base = process.env.SEO_TEST_BASE_URL || 'http://localhost:3100';
 const canonical = `${seoConfig.origin}/`;
@@ -9,7 +10,7 @@ async function request(path, headers) {
   return { response, body: await response.text() };
 }
 
-test('V3 homepage is indexable, has correct metadata, and exposes only Hero and About', async () => {
+test('Public homepage is indexable, has correct metadata, and exposes only Hero and About', async () => {
   const { response, body } = await request('/');
   assert.equal(response.status, 200);
   assert.doesNotMatch(response.headers.get('x-robots-tag') || '', /noindex/i);
@@ -25,7 +26,12 @@ test('V3 homepage is indexable, has correct metadata, and exposes only Hero and 
   assert.doesNotMatch(body, /<meta[^>]*name="robots"[^>]*content="[^"]*noindex/i);
   assert.doesNotMatch(body, /<meta[^>]*name="keywords"/);
   assert.doesNotMatch(body, /hrefLang=/i);
-  assert.match(body, /Curious mind/);
+  assert.match(body, /A curious mind/);
+  assert.match(body, /two years studying Computer Maintenance and Networks during high school, followed by a two-year Specialized Technician program in Artificial Intelligence, with a Data Analyst specialization/);
+  assert.doesNotMatch(body, /Four years studying computer maintenance/);
+  assert.equal([...body.matchAll(/<img[^>]*alt="El Houssaine Ouahad"/g)].length, 1);
+  assert.match(body, /icons%2Flogo_black\.png/);
+  assert.match(body, /icons%2Flogo_%2523077F64\.png/);
   assert.match(body, /images%2Fprofile\.png/);
   assert.equal([...body.matchAll(/<section\b/g)].length, 2);
   assert.doesNotMatch(body, /New portfolio in progress|Something new|id="(?:creations|discover|explorations|thoughts|contact)"|Applied AI Project|The next idea starts here/);
@@ -96,9 +102,24 @@ for (const path of ['/not-a-published-page']) {
     const { response, body } = await request(path);
     assert.equal(response.status, 404);
     assert.match(body, /noindex/);
-    assert.equal(/type="application\/ld\+json"|Room to think|Applied AI Project|Four years studying/.test(body), false, 'Production response leaked preview content or homepage JSON-LD');
+    assert.equal(/type="application\/ld\+json"|Room to think|Applied AI Project|two-year Specialized Technician program/.test(body), false, 'Production response leaked preview content or homepage JSON-LD');
     const rsc = await request(path, { RSC: '1' });
     assert.equal(rsc.response.status, 404);
-    assert.equal(/Room to think|Applied AI Project|Four years studying/.test(rsc.body), false, 'RSC response leaked unpublished content');
+    assert.equal(/Room to think|Applied AI Project|two-year Specialized Technician program/.test(rsc.body), false, 'RSC response leaked unpublished content');
   });
 }
+
+test('official favicon and Apple touch icon share one accessible PNG source', async () => {
+  const { body } = await request('/');
+  for (const relation of ['icon', 'apple-touch-icon']) {
+    const links = [...body.matchAll(new RegExp(`<link[^>]*rel="${relation}"[^>]*href="([^"]+)"`, 'g'))];
+    assert.equal(links.length, 1);
+    assert.equal(links[0][1], brandConfig.appIcon);
+  }
+  assert.doesNotMatch(body, /href="\/icon\.svg/);
+  const response = await fetch(new URL(brandConfig.appIcon, base));
+  assert.equal(response.status, 200);
+  assert.match(response.headers.get('content-type'), /image\/png/);
+  const bytes = new Uint8Array(await response.arrayBuffer());
+  assert.deepEqual([...bytes.slice(0, 8)], [137, 80, 78, 71, 13, 10, 26, 10]);
+});
