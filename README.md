@@ -1,18 +1,12 @@
 # El Houssaine Ouahad — Portfolio
 
-A production-ready, responsive portfolio for a Junior Data Analyst and AI enthusiast based in Tangier, Morocco. Built with Next.js App Router, TypeScript, Motion, and server-side Supabase REST integration.
+A personal web space for a Junior Data Analyst and applied AI / web developer based in Tangier, Morocco. Built with Next.js App Router and TypeScript.
 
-## Temporary coming-soon page
+## Current homepage
 
-The public homepage currently shows the portfolio rebuild announcement. It uses
-`app/page.tsx` and `app/coming-soon.css`, with local fonts and CSS-only animations
-that respect reduced-motion preferences. No launch date or percentage is implied.
+The current `app/page.tsx` renders the `SpaceShell` with `SpaceHero` and `SpaceAbout` components and homepage structured data. Earlier landing-page material and other site components may still be in the repository. The sections and routes visible in production should be checked against the deployed site; the existence of a module alone does not mean it is live.
 
-The previous homepage is preserved in `components/legacy-portfolio.tsx` and is
-not mounted by any route. Its styles remain in `app/globals.css`; all original
-sections, assets, API routes, and configuration remain available for the rebuild.
-To deliberately restore that interface later, render `LegacyPortfolio` from
-`app/page.tsx` and switch the layout stylesheet back to `app/globals.css`.
+**Website:** https://ouahad.space
 
 ## Run locally
 
